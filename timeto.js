@@ -1,44 +1,46 @@
-function getTimeRemaining(endtime) {
-    var t = Date.parse(endtime) - Date.parse(new Date());
-    var seconds = Math.floor((t / 1000) % 60);
-    var minutes = Math.floor((t / 1000 / 60) % 60);
-    var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-    var days = Math.floor(t / (1000 * 60 * 60 * 24));
+const deadline = 'December 12 2025 09:31:00 GMT+0300';
+
+const addZero = (number) =>  number < 10 ? '0' + number : number;
+
+const getTimeRemaining = (endtime) => {
+    const total = Date.parse(endtime) - new Date();
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
     return {
-        'total': t,
-        'days': days,
-        'hours': hours,
-        'minutes': minutes,
-        'seconds': seconds
+        total,
+        days,
+        hours,
+        minutes,
+        seconds
     };
 }
-function print(data) {
-    if (data.days < 10){
-        jQuery('.timer .days span').text("0"+data.days);
-    }else{
-        jQuery('.timer .days span').text(data.days);
-    }
-    if (data.hours < 10){
-        jQuery('.timer .hours span').text("0"+data.hours);
-    }else{
-        jQuery('.timer .hours span').text(data.hours);
-    }
-    if (data.minutes < 10){
-        jQuery('.timer .minutes span').text("0"+data.minutes);
-    }else{
-        jQuery('.timer .minutes span').text(data.minutes);
-    }
-    if (data.seconds < 10){
-        jQuery('.timer .seconds span').text("0"+data.seconds);
-    }else{
-        jQuery('.timer .seconds span').text(data.seconds);
+
+const print = ({days, hours, minutes, seconds}) =>  {
+    document.getElementById('days').innerText = addZero(days);
+    document.getElementById('hours').innerText = addZero(hours);
+    document.getElementById('minutes').innerText = addZero(minutes);
+    document.getElementById('seconds').innerText = addZero(seconds);
+}
+
+
+let intervalID;
+
+const updateClock = () => {
+    const timeRemaining = getTimeRemaining(deadline)
+
+    if (timeRemaining.total <= 0) {
+        print({days: 0, hours: 0, minutes: 0, seconds: 0});
+        clearInterval(intervalID);
+    } else {
+        print(timeRemaining);
     }
 }
-function init() {
-    function updateClock() {
-        let deadline = "December 12 2025 09:31:00 GMT+0300";
-        print(getTimeRemaining(deadline));
-    }
-    updateClock();
-    var timeinterval = setInterval(updateClock, 1000);
-}
+
+document.addEventListener('DOMContentLoaded',  () => {
+    intervalID = setInterval(updateClock, 1000);
+})
+
+window.addEventListener('beforeunload', () => clearInterval(intervalID))
