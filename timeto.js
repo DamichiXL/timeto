@@ -36,7 +36,7 @@ function print(data) {
 }
 function init() {
     function updateClock() {
-        let deadline = "September 01 2025 13:00:00 GMT+0300";
+        let deadline = "December 12 2025 09:31:00 GMT+0300";
         print(getTimeRemaining(deadline));
     }
     updateClock();
