@@ -1,39 +1,83 @@
+:root {
+    --padding: 20px;
+    --border-radius: 5px;
+
+    --color-primary: #e66465;
+    --color-secondary: #9198e5;
+    --color-text: white;
+    --bg-overlay: rgba(255, 255, 255, .3);
+
+    --font-main: courier, arial, helvetica, serif;
+}
+
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
-body{
-    background: linear-gradient(135deg, #e66465, #e66465 40%, #9198e5);
-    background-size: 100%;
-}
-.container{
-    position: relative;
+
+body {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    grid-row-gap: var(--padding);
     width: 100vw;
     height: 100vh;
-}
-#timer{
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    font-family: courier, arial, helvetica, serif;
-    font-size: 2rem;
+    padding: var(--padding);
+
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary) 40%, var(--color-secondary));
+    background-size: 100%;
+
+    font-family: var(--font-main);
     font-weight: bold;
-    color: white;
+    color: var(--color-text);
+}
+
+/* Typography */
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+span {
+    font-size: 2rem;
+}
+
+/* Timer */
+#timer {
     display: grid;
-    grid-template-columns: 24% 24% 24% 24%;
-    grid-gap: calc(4% / 3);
-    width: 50%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: var(--padding);
+    grid-row-gap: var(--padding);
+    place-items: center;
+
+    @media (width <= 1000px) {
+        grid-template-columns: none;
+        grid-template-rows: repeat(4, 1fr);
+        width: 100%;
+    }
 }
-#timer div{
+
+#timer div {
+    display: grid;
+    grid-row-gap: calc(var(--padding) / 2);
+
+    width: 100%;
+    max-width: 400px;
+    padding: var(--padding);
+
+    background: var(--bg-overlay);
+    border-radius: var(--border-radius);
+
     text-align: center;
-    background: rgba(255, 255, 255, .3);
-    padding: 10px;
-    border-radius: 3px;
 }
-#timer span{
+
+#timer span {
     display: block;
-    padding: 10px;
-    background: #e66465;
-    border-radius: 3px;
+    padding: calc(var(--padding) / 2);
+    background: var(--color-primary);
+    border-radius: var(--border-radius);
 }
