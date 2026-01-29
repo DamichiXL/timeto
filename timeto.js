@@ -1,4 +1,4 @@
-const deadline = 'December 12 2025 09:31:00 GMT+0300';
+const deadline = 'February 09 2026 13:30:00 GMT+0300';
 
 const addZero = (number) =>  number < 10 ? '0' + number : number;
 
